@@ -1,0 +1,15 @@
+{
+  "name": "asoms-validations-scraper",
+  "version": "1.0.0",
+  "description": "Parses the ASOMS validations and separates them into Warnings and Errors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tripathi, Shubhang",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^4.4.3",
+    "simple-text-parser": "^1.0.0"
+  }
+}
