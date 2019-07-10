@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^4.4.3",
+    "csv-write-stream": "^2.0.0",
+    "csv-writer": "^1.4.0",
+    "papaparse": "^5.0.0",
     "simple-text-parser": "^1.0.0"
   }
 }

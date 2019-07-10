@@ -2,12 +2,12 @@ const parse = require('csv-parse/lib/sync')
 const fs = require('fs');
 const Parser = require('simple-text-parser')
 const textParser = new Parser();
-const createCsvWriter = require('csv-writer');
+const csvWriter = require('csv-write-stream');
 
 const inputFilePath = 'C:\\Shubhang\\Work\\asoms-validations-scraper\\Story170_details.csv'
 const outputFilePath = 'output.csv'
 //const input = fs.readFileSync('Story170_details.csv');
-const input = fs.readFileSync('Story170_1.csv');
+const input = fs.readFileSync('Story170_details.csv');
 const records = parse(input, {
   columns: false,
   skip_empty_lines: true
@@ -22,19 +22,13 @@ const validation = function (validationObj) {
   return this
 }
 
-const csvWriter = createCsvWriter({
-  path: 'output.csv',
-  header: [
-      {id: 'details', title: 'Details'},
-      {id: 'type', title: 'Type'}
-  ]
-});
+
 const addValidationToCollection = function (validationText, validationType) {
   var validationObj = new validation();
   validationObj.Text = validationText;
   validationObj.Type = validationType;
   validationCollections.push(validationObj);
-  csvWriter.writeRecords(validationObj).then(console.log("done"));
+  //csvWriter.writeRecords(validationObj).then(console.log("done"));
 }
 
 const determineValidationCategory = function (validationTextArray, lowerIndex, higherIndex, lowIndexName, highIndexName) {
@@ -85,15 +79,15 @@ records.forEach(record => {
 });
 
 validationCollections.forEach(function(element){
-  if (!fs.existsSync(finalPathFile))
-  writer = csvWriter({ headers: ["header1", "header2"]});
+  if (!fs.existsSync(outputFilePath))
+  writer = csvWriter({ headers: ["Validation Details", "Type"]});
 else
   writer = csvWriter({sendHeaders: false});
 
-writer.pipe(fs.createWriteStream(finalPathFile, {flags: 'a'}));
+writer.pipe(fs.createWriteStream(outputFilePath, {flags: 'a'}));
 writer.write({
-  header1:"hello",
-  header2:"world",
+  header1:element.Text,
+  header2:element.Type,
 });
 writer.end();
 })
